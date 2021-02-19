@@ -1,0 +1,65 @@
+<?php
+include "func_lib.php";
+f_con_db('1');
+f_head();
+?>
+
+
+<body>
+<?php
+//print_r($_GET);
+//print_r($_POST);
+
+
+$today = getdate();
+$f_today1 = $today[mday]. '.' . $today[mon] . '.' .$today[year]  ;
+
+$ctextarea = $_GET['ctextarea'];
+$cdate = $_GET['cdate'];
+$cname = $_GET['cname'];
+
+if (strlen($cname)>0) {
+    $sql = "INSERT INTO message_s (`c_id`, `c_name`, `c_date`, `c_text`) VALUES (NULL, '".$cname."', '".$cdate."', '".$ctextarea."');";
+   // echo $sql;
+      $result = mysql_query($sql) or die("message.php: " . mysql_error());
+}
+
+?>
+
+<center>
+<form id="form1" name="form1" method="get" action="">  
+  
+    <p>
+      <input type="hidden" name="cname" value="<?php echo $c_alfa;?>" />
+      <input type="hidden" name="cdate" value="<?php echo $f_today1;?>" />
+    </p>
+    <p>İşmarıçı daxil edin<br>
+      <textarea name="ctextarea" id="ctextarea" cols="70" rows="12"></textarea>
+      <br>
+      <input type="submit" name="button" id="button" value="Отправить" />
+    </p>
+</form>
+
+<table border="1" bordercolor="#999999" cellpadding="5" cellspacing="0" >
+  <tr>
+    <td>Tarix</td>
+    <td>İsmarıç</td>
+  </tr>
+  <?php
+
+$sql = "SELECT  `c_name`, `c_date`, `c_text` FROM message_s WHERE c_name='".$c_alfa."' order by c_id;";
+//echo $sql;
+$result = mysql_query($sql) or die("message.php:  " . mysql_error());
+
+while ($row = mysql_fetch_assoc($result)) {
+    $c_name = $row["c_name"];
+    $c_date_ob = $row["c_date"];
+    $c_text = $row["c_text"];
+
+    echo "<tr><td>" . $c_date_ob . "</td><td>" . $c_text . "</td></tr>";
+}
+?>
+</table>
+</center>
+</body>
+</html>

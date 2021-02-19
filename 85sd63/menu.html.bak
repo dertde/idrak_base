@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=Utf-8" />
+<link href="sample.css" rel="stylesheet" type="text/css" />
+<title>Felix v 2.0</title>
+</head>
+<body bgcolor="#FB7922">
+<table border="0" cellpadding="0" cellspacing="0">
+			<tbody>
+			<tr valign="top">
+			<td align="right" class="navi">
+			<img src="blank.gif" alt="" width="145" height="15"><br>
+			<span class="nh">
+
+<a class="n" href="1insert_depart.php" target="mainFrame">Добавление департамента </a><br/>
+<a class="n" href="1insert_vid.php" target="mainFrame">Добавление вида </a><br/>
+<a class="n" href="1insert_client.php" target="mainFrame">Добавление сотрудника </a><br/>
+<a class="n" href="1insert_tovar.php" target="mainFrame">Добавление товара </a><br/>
+<a class="n" href="1update_tovar.php" target="mainFrame">Редактирование товара </a><br/>
+
+<br/>
+<a class="n" href="1move.php" target="mainFrame">Перемещение </a><br/>
+<a class="n" href="1client_zakazi_777.php" target="mainFrame">Товар на сотруднике </a><br/>
+<a class="n" href="1select_client_sp.php" target="mainFrame">Поиск сотрудника</a><br/>
+<a class="n" href="1select_tovar_sp.php" target="mainFrame">Поиск товара список </a><br/>
+<a class="n" href="1move_history.php" target="mainFrame">Информация о товаре</a><br/>
+
+<br/>
+
+<a class="n" href="message.php" target="mainFrame">Написать об ошибке</a><br/>
+<br/>
+<br/>
+</td>
+</tr>
+
+</table>
+
+</body>
+
+
+</html>

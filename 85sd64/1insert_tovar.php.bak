@@ -1,0 +1,128 @@
+<?php
+include "func_lib.php";
+f_con_db('1');
+f_head();
+?>
+<body>
+<p>
+ <?php
+$row_client_sponsor = $_GET['Search'];
+@$POST_c_vid = $_POST['c_vid'];
+@$POST_c_our_serial = $_POST['c_our_serial'];
+@$POST_c_serial = $_POST['c_serial'];
+@$POST_c_comment = $_POST['c_comment'];
+@$POST_c_people_id = $_POST['c_people_id'];
+if (strlen($POST_c_vid) == 0) {
+    $POST_c_vid = 'xxx';
+}
+if (strlen($POST_c_serial) == 0) {
+    $POST_c_serial = 'xxx';
+}
+if (strlen($POST_c_comment) == 0) {
+    $POST_c_comment = 'xxx';
+}
+if (strlen($POST_c_people_id) == 0) {
+    $POST_c_people_id = 'xxx';
+}
+if ($POST_c_vid <> 'xxx') {
+    $f_today1 = f_today(1);
+    $sql = "INSERT INTO c_sklad ( c_vid, c_serial,c_our_serial, c_comment, c_people_id,c_date ) VALUES ('" .
+        $POST_c_vid . "','" . $POST_c_serial . "','" . $POST_c_our_serial . "','" . $POST_c_comment .
+        "','" . $POST_c_people_id . "', NOW());";
+    // $SubmitInfo= f_move($GET_ID,$POST_c_people_id );
+    $result = mysql_query($sql) or die("1insert_tovar.php 1: " . mysql_error());
+
+    $STATUS_MYSQL = 'Информация добавлена' . '';
+}
+?>
+</p>
+<table width="700" border="0">
+ <tr>
+ <td>
+ <form id="form1" name="form1" method="post" action="1insert_tovar.php">
+		
+<table width="500" border="0">
+  <tr>
+    <td>
+      <form id="form1" name="form1" method="post" action="1insert_tovar.php">
+		  <fieldset ><legend ><h3>Məhsulun daxil edilməsi</h3></legend>
+        <table cellspacing="3" cellpadding="0">
+          <tr>
+            <td align="left">Məhsulun növü</td>
+            <td></td>
+            <td><select name="c_vid">
+ <option value=0>--</option>
+ <?php
+$sql = "SELECT c_id,c_name FROM  c_vid  order by c_id ";
+$result = mysql_query($sql) or die("5Could not connect: " . mysql_error());
+while ($row = mysql_fetch_assoc($result)) {
+    $row_c_idd = $row["c_id"];
+    $row_c_named = $row["c_name"];
+    echo "<option  value='" . $row_c_idd . "'>" . $row_c_named . "</option>";
+    $ada = '';
+}
+?>
+ 
+ </select>                </td>
+          </tr>
+          <tr>
+            <td align="left">Idraka aid seriya nömrəsi</td>
+            <td></td>
+            <td> <textarea name="c_our_serial" id="textarea" cols="45" rows="5"></textarea>            </td>
+          </tr>
+                    <tr>         
+            <td align="left">Seriaya nömrələri</td>
+            <td></td>
+            <td><textarea name="c_serial" id="textarea" cols="45" rows="5"></textarea>         </td>
+          </tr>
+                 
+          <tr>         
+            <td align="left">Başlıq <br>Əlavə məlumat</td>
+            <td></td>
+            <td> <textarea name="c_comment" id="textarea" cols="45" rows="5"></textarea>          </td>
+          </tr>
+          <tr>
+           <tr>
+            <td align="left">Əməkdaş</td>
+            <td></td>
+            <td><select name="c_people_id">
+ <option value=0>Anbar</option>
+ <?php
+$sql = "SELECT c_id,c_name,c_lastname FROM  people where  c_id>0 order by c_name ";
+$result = mysql_query($sql) or die("5Could not connect: " . mysql_error());
+while ($row = mysql_fetch_assoc($result)) {
+    $row_c_idp = $row["c_id"];
+    $row_c_namep = $row["c_name"];
+    $row_c_lastnamep = $row["c_lastname"];
+    if ($row_c_idp == $row_client_sponsor) {
+        $ada = 'selected="selected"';
+    }
+    echo "<option " . $ada . "  value='" . $row_c_idp . "'>" . $row_c_namep . " " .
+        $row_c_lastnamep . "</option>";
+    $ada = '';
+}
+?>
+ 
+ </select>          </td>
+          </tr>
+          
+         
+          <tr>
+            <td colspan="3" align="left"><div align="center">
+                <input type="submit" name="Submit" value="&#1047;&#1072;&#1088;&#1077;&#1075;&#1080;&#1089;&#1090;&#1088;&#1080;&#1088;&#1086;&#1074;&#1072;&#1090;&#1100;" />
+            </div></td>
+          </tr>
+        </table>
+		</fieldset>
+    </form></td>
+  </tr>
+</table>
+		
+ </form></td>
+ </tr>
+</table>
+<br>
+<br>
+<?php echo $STATUS_MYSQL; ?>
+</body>
+</html>

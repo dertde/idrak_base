@@ -1,0 +1,178 @@
+<?php
+include "func_lib.php";
+f_con_db('1');
+f_head();
+?>
+<body>
+<p>
+ <?php
+
+//print_r($_GET);
+//print_r($_POST);
+
+
+@$GET_ID = $_GET['c_id'];
+$c_people_id = $_GET['c_people_id'];
+
+$GET_ID =57;
+if ($GET_ID==""){
+return;
+echo ("break;");
+}
+
+$row_Submit = $_GET['Submit'];
+if ($row_Submit){
+
+$SubmitInfo= f_move($GET_ID,$c_people_id );
+echo $SubmitInfo;
+}
+
+if ($GET_ID) {
+    $sql = "SELECT c_id,	c_vid,c_serial,c_our_serial,c_comment,c_people_id,c_date FROM `c_sklad`  WHERE c_id=" .
+        $GET_ID . "";
+    $result = mysql_query($sql) or die("1move.php 1: " . mysql_error());
+    while ($row = mysql_fetch_assoc($result)) {
+        $c_vid = $row["c_vid"];
+        $c_serial = $row["c_serial"];
+        $c_our_serial = $row["c_our_serial"];
+        $c_comment = $row["c_comment"];
+        $c_people_id = $row["c_people_id"];
+        $c_date = $row["c_date"];
+
+        $ada_c_comment = $c_comment;
+        $ada_c_our_serial = $c_our_serial;
+        $ada_c_people_id = $c_people_id;
+
+$ac_vid=	f_get_c_vid($c_vid);
+    }
+
+}
+
+
+//if ($POST_c_vid <> 'xxx') {
+    //$f_today1 = f_today(1);
+
+    //$sql = "INSERT INTO c_sklad ( c_vid, c_serial, c_comment, c_people_id,c_date ) VALUES ('" .
+        //$POST_c_vid . "','" . $POST_c_serial . "','" . $POST_c_comment . "','" . $POST_c_people_id .
+        //"', NOW());";
+
+    //$result = mysql_query($sql) or die("1insert_tovar.php 1: " . mysql_error());
+
+
+    //$STATUS_MYSQL = 'Информация добавлена' . '';
+
+
+//}
+
+?>
+</p>
+<table width="800" border="0">
+ <tr>
+ <td>
+ <form id="form1" name="form1" method="get" action="">
+
+		
+
+
+
+<table width="500" border="0">
+  <tr>
+    <td>
+      <form id="form1" name="form1" method="post" action="1move.php">
+
+		  <fieldset ><legend ><h3>Информация о товаре</h3></legend>
+
+
+
+        <table cellspacing="3" cellpadding="0">
+<tr>
+            <td align="left">Название_Товара</td>
+            <td></td><td>
+			 <?php
+echo "&nbsp;&nbsp;&nbsp;&nbsp;".$ada_c_comment;
+?>
+			</td></tr>
+<tr>
+            <td align="left">Вид Товара</td>
+            <td></td><td>
+			 <?php
+			 
+echo "&nbsp;&nbsp;&nbsp;&nbsp;".$ac_vid;
+?>
+			</td></tr>
+
+			
+			<tr>
+            <td align="left">Наш Сер.номер</td>
+            <td></td><td><?php
+echo "&nbsp;&nbsp;&nbsp;&nbsp;".$ada_c_our_serial;
+?></td></tr>
+<tr>
+            <td align="left">Серийные номера</td>
+            <td></td><td><?php
+echo "&nbsp;&nbsp;&nbsp;&nbsp;".$c_serial;
+?></td></tr>
+
+
+						<tr>
+            <td align="left">Владелец</td>
+            <td></td><td><?php
+
+            $ada_c_people_id =f_get_people($ada_c_people_id);
+echo "&nbsp;&nbsp;&nbsp;&nbsp;".$ada_c_people_id;
+
+
+?></td></tr>
+          
+          
+          
+         
+         
+        </table>
+		</fieldset>
+    </form></td>
+  </tr>
+</table>
+		
+ </form></td>
+ </tr>
+</table>
+
+<table>
+<?php
+$sql = "SELECT c_date,`c_id_user` FROM `t_move` WHERE `c_id_product`=" .$GET_ID." order by c_date";
+
+$result = mysql_query($sql) or die("Could not connect: " . mysql_error());
+
+if ($result) {
+	while ($row = mysql_fetch_assoc($result)) 
+		{
+		$row_c_date = $row["c_date"];
+	$row_c_id_user = $row["c_id_user"];
+ $row_c_date = f_reload_date($row_c_date);
+$row_c_id_user =f_get_people($row_c_id_user);
+	echo "
+ <tr>
+
+<td>".$row_c_date."<td>
+<td>".$row_c_id_user."<td>
+</td>
+  </tr>";
+
+}
+}
+
+
+
+?>
+</table>
+
+
+<br>
+<br>
+<?php echo $STATUS_MYSQL; ?>
+
+
+
+</body>
+</html>
